@@ -19,11 +19,10 @@ async def on_startup(_) -> None:
     :param _:
     """
     # result = await get_users_for_check()
-    # if result.get("msg"):
-    #     print(result.get("msg"))
     # users = result.get("users")
+    # print(users)
     # for user in users:
-    #     await start_loop(username=user.get("username"), user_id=user.get("username"), bot=bot)
+    #     await start_loop(user_id=user.get("telegram_user_id"), bot=bot)
     print("Success")
 
 
@@ -44,9 +43,9 @@ if __name__ == "__main__":
     dp = Dispatcher(bot, storage=storage)
 
     # Регистрания handlers
-    client.register_client_handlers(dp)
+    client.register_client_handlers(dp, bot)
     exceptions.register_exceptions_handler(dp)
     other.register_other_handlers(dp)
 
     # Запуск поллинга
-    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+    executor.start_polling(dp, on_startup=on_startup)
